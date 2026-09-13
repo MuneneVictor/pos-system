@@ -1,0 +1,8 @@
+<div class="form-section"><div class="form-section__heading"><span class="eyebrow">Supplier</span><h3>Company details</h3></div><div class="form-grid">
+<div class="field field--span-2"><label>Name</label><input name="name" value="<?=e($data['name'])?>" maxlength="150" required autofocus><?php if(isset($errors['name'])):?><small class="field-error"><?=e($errors['name'])?></small><?php endif;?></div>
+<div class="field"><label>Contact person</label><input name="contact_person" value="<?=e($data['contact_person'])?>" maxlength="150"></div><div class="field"><label>Tax / PIN number</label><input name="tax_number" value="<?=e($data['tax_number'])?>" maxlength="80"></div>
+<div class="field"><label>Phone</label><input name="phone" value="<?=e($data['phone'])?>" maxlength="50"></div><div class="field"><label>Alternate phone</label><input name="alternate_phone" value="<?=e($data['alternate_phone'])?>" maxlength="50"></div>
+<div class="field field--span-2"><label>Email</label><input type="email" name="email" value="<?=e($data['email'])?>" maxlength="150"><?php if(isset($errors['email'])):?><small class="field-error"><?=e($errors['email'])?></small><?php endif;?></div>
+<div class="field field--span-2"><label>Address</label><input name="address" value="<?=e($data['address'])?>" maxlength="255"></div><div class="field field--span-2"><label>Notes</label><textarea name="notes" rows="4"><?=e($data['notes'])?></textarea></div>
+<div class="field field--span-2"><label>Status</label><select name="status"><option value="active" <?=$data['status']==='active'?'selected':''?>>Active</option><option value="inactive" <?=$data['status']==='inactive'?'selected':''?>>Inactive</option></select></div>
+</div></div>
