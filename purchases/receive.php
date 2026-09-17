@@ -18,7 +18,7 @@ $purchase = $purchaseStmt->fetch();
 
 if (!$purchase || !in_array($purchase['status'], ['ordered', 'partially_received'], true)) {
     flash('error', 'This purchase cannot receive stock.');
-    redirect('purchases/view.php?id=' . $purchaseId);
+    redirect('purchases/view?id=' . $purchaseId);
 }
 
 $itemsStmt = db()->prepare(
@@ -254,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $pdo->commit();
             flash('success', 'Stock received and inventory updated.');
-            redirect('purchases/view.php?id=' . $purchaseId);
+            redirect('purchases/view?id=' . $purchaseId);
         } catch (Throwable $exception) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -277,7 +277,7 @@ require BASE_PATH . '/includes/sidebar.php';
     <main class="content">
         <div class="page-toolbar">
             <div>
-                <a class="back-link" href="<?= e(app_url('purchases/view.php?id=' . $purchaseId)) ?>">← Purchase</a>
+                <a class="back-link" href="<?= e(app_url('purchases/view?id=' . $purchaseId)) ?>">← Purchase</a>
                 <h2>Receive stock</h2>
                 <p><?= e($purchase['purchase_no']) ?> · <?= e($purchase['supplier_name']) ?></p>
             </div>
@@ -318,7 +318,7 @@ require BASE_PATH . '/includes/sidebar.php';
                 </table>
             </div>
             <div class="form-actions">
-                <a class="button button--ghost" href="<?= e(app_url('purchases/view.php?id=' . $purchaseId)) ?>">Cancel</a>
+                <a class="button button--ghost" href="<?= e(app_url('purchases/view?id=' . $purchaseId)) ?>">Cancel</a>
                 <button class="button button--primary" type="submit">Receive stock</button>
             </div>
         </form>

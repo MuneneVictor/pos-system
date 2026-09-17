@@ -20,7 +20,7 @@ require BASE_PATH . '/includes/sidebar.php';
             <div class="empty-page-card__icon">!</div>
             <h2>You do not have access to this page</h2>
             <p>Your account does not have the required permission for this action.</p>
-            <a class="button button--primary" href="<?= e(app_url('dashboard.php')) ?>">Back to dashboard</a>
+            <a class="button button--primary" href="<?= e(app_url('dashboard')) ?>">Back to dashboard</a>
         </section>
     </main>
 </div>

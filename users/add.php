@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             flash('success', 'Staff account created successfully.');
-            redirect('users/index.php');
+            redirect('users/index');
         } catch (Throwable $exception) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -201,7 +201,7 @@ require BASE_PATH . '/includes/sidebar.php';
     <main class="content">
         <div class="page-toolbar">
             <div>
-                <a class="back-link" href="<?= e(app_url('users/index.php')) ?>">← Back to users</a>
+                <a class="back-link" href="<?= e(app_url('users/index')) ?>">← Back to users</a>
                 <h2>Add staff member</h2>
                 <p>Create a secure login account and assign the correct role.</p>
             </div>
@@ -327,7 +327,7 @@ require BASE_PATH . '/includes/sidebar.php';
             </div>
 
             <div class="form-actions">
-                <a class="button button--ghost" href="<?= e(app_url('users/index.php')) ?>">Cancel</a>
+                <a class="button button--ghost" href="<?= e(app_url('users/index')) ?>">Cancel</a>
                 <button class="button button--primary" type="submit">Create account</button>
             </div>
         </form>

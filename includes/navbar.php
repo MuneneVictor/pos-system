@@ -35,7 +35,7 @@ $user = current_user();
             </div>
         </div>
 
-        <a class="logout-button" href="<?= e(app_url('logout.php')) ?>">
+        <a class="logout-button" href="<?= e(app_url('logout')) ?>">
             Sign out
         </a>
     </div>

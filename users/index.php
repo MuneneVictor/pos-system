@@ -107,7 +107,7 @@ require BASE_PATH . '/includes/sidebar.php';
             </div>
 
             <?php if (user_can('users.create')): ?>
-                <a class="button button--primary" href="<?= e(app_url('users/add.php')) ?>">+ Add user</a>
+                <a class="button button--primary" href="<?= e(app_url('users/add')) ?>">+ Add user</a>
             <?php endif; ?>
         </div>
 
@@ -162,7 +162,7 @@ require BASE_PATH . '/includes/sidebar.php';
                 <button class="button button--secondary" type="submit">Filter</button>
 
                 <?php if ($search !== '' || $roleFilter > 0 || $statusFilter !== ''): ?>
-                    <a class="button button--ghost" href="<?= e(app_url('users/index.php')) ?>">Clear</a>
+                    <a class="button button--ghost" href="<?= e(app_url('users/index')) ?>">Clear</a>
                 <?php endif; ?>
             </form>
 
@@ -210,7 +210,7 @@ require BASE_PATH . '/includes/sidebar.php';
                                 <td><?= e(format_datetime($row['last_login_at'])) ?></td>
                                 <td class="table-action-cell">
                                     <?php if (user_can('users.update')): ?>
-                                        <a class="table-action" href="<?= e(app_url('users/edit.php?id=' . (int) $row['id'])) ?>">
+                                        <a class="table-action" href="<?= e(app_url('users/edit?id=' . (int) $row['id'])) ?>">
                                             Edit
                                         </a>
                                     <?php endif; ?>
@@ -233,7 +233,7 @@ require BASE_PATH . '/includes/sidebar.php';
                     <nav class="pagination" aria-label="User pages">
                         <?php if ($page > 1): ?>
                             <?php $prev = http_build_query(array_merge($queryBase, ['page' => $page - 1])); ?>
-                            <a href="<?= e(app_url('users/index.php?' . $prev)) ?>">←</a>
+                            <a href="<?= e(app_url('users/index?' . $prev)) ?>">←</a>
                         <?php endif; ?>
 
                         <?php
@@ -243,14 +243,14 @@ require BASE_PATH . '/includes/sidebar.php';
                             $pageQuery = http_build_query(array_merge($queryBase, ['page' => $p]));
                         ?>
                             <a class="<?= $p === $page ? 'is-current' : '' ?>"
-                               href="<?= e(app_url('users/index.php?' . $pageQuery)) ?>">
+                               href="<?= e(app_url('users/index?' . $pageQuery)) ?>">
                                 <?= e((string) $p) ?>
                             </a>
                         <?php endfor; ?>
 
                         <?php if ($page < $totalPages): ?>
                             <?php $next = http_build_query(array_merge($queryBase, ['page' => $page + 1])); ?>
-                            <a href="<?= e(app_url('users/index.php?' . $next)) ?>">→</a>
+                            <a href="<?= e(app_url('users/index?' . $next)) ?>">→</a>
                         <?php endif; ?>
                     </nav>
                 <?php endif; ?>

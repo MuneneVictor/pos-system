@@ -33,7 +33,7 @@ $role = $roleStmt->fetch();
 
 if (!$role) {
     flash('error', 'Role not found.');
-    redirect('users/roles.php');
+    redirect('users/roles');
 }
 
 if ($role['slug'] === 'owner') {
@@ -110,7 +110,7 @@ if ($role['slug'] === 'owner') {
             );
 
             flash('success', 'Permissions saved for ' . $role['name'] . '.');
-            redirect('users/permissions.php?role=' . $roleId);
+            redirect('users/permissions?role=' . $roleId);
         } catch (Throwable $exception) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -118,7 +118,7 @@ if ($role['slug'] === 'owner') {
 
             error_log('Permission update failed: ' . $exception->getMessage());
             flash('error', 'Permissions could not be saved. Please try again.');
-            redirect('users/permissions.php?role=' . $roleId);
+            redirect('users/permissions?role=' . $roleId);
         }
     }
 
@@ -161,7 +161,7 @@ require BASE_PATH . '/includes/sidebar.php';
                 <span class="role-selector__label">Select role</span>
                 <?php foreach ($roles as $roleOption): ?>
                     <a class="role-selector__item <?= (int) $roleOption['id'] === $roleId ? 'is-active' : '' ?>"
-                       href="<?= e(app_url('users/permissions.php?role=' . (int) $roleOption['id'])) ?>">
+                       href="<?= e(app_url('users/permissions?role=' . (int) $roleOption['id'])) ?>">
                         <span><?= e($roleOption['name']) ?></span>
                         <?php if ($roleOption['slug'] === 'owner'): ?><small>Full access</small><?php endif; ?>
                     </a>
@@ -222,7 +222,7 @@ require BASE_PATH . '/includes/sidebar.php';
 
                     <?php if ($role['slug'] !== 'owner'): ?>
                         <div class="form-actions sticky-actions">
-                            <a class="button button--ghost" href="<?= e(app_url('users/roles.php')) ?>">Back to roles</a>
+                            <a class="button button--ghost" href="<?= e(app_url('users/roles')) ?>">Back to roles</a>
                             <button class="button button--primary" type="submit">Save permissions</button>
                         </div>
                     <?php endif; ?>

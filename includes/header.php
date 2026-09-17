@@ -28,7 +28,7 @@ $pageStyles = $pageStyles ?? [];
     <?php endforeach; ?>
 
     <script>
-        window.APP_THEME_ENDPOINT = <?= json_encode(app_url('auth/theme.php'), JSON_UNESCAPED_SLASHES) ?>;
+        window.APP_THEME_ENDPOINT = <?= json_encode(app_url('auth/theme'), JSON_UNESCAPED_SLASHES) ?>;
         (function () {
             const serverTheme = document.documentElement.dataset.userTheme || 'light';
             document.documentElement.setAttribute('data-theme', serverTheme);

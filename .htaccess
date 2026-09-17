@@ -10,6 +10,17 @@ Options -Indexes
 
     # Block hidden files such as .env, .git, etc.
     RewriteRule (^|/)\. - [F,L]
+
+    # Keep real files and directories directly accessible.
+    # Direct .php URLs remain valid.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Internally map extensionless URLs to matching PHP files.
+    # Example: /products/view -> /products/view.php
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
 </IfModule>
 
 <Files ".env">

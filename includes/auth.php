@@ -62,7 +62,7 @@ function require_auth(): void
 {
     if (!is_logged_in()) {
         flash('error', 'Please sign in to continue.');
-        redirect('login.php');
+        redirect('login');
     }
 
     $lastActivity = (int) ($_SESSION['last_activity'] ?? time());
@@ -82,7 +82,7 @@ function require_auth(): void
 
         logout_session();
         flash('error', 'Your session expired. Please sign in again.');
-        redirect('login.php');
+        redirect('login');
     }
 
     $_SESSION['last_activity'] = time();
@@ -100,7 +100,7 @@ function require_auth(): void
     if ($user === null) {
         logout_session();
         flash('error', 'Your account is unavailable. Please contact the administrator.');
-        redirect('login.php');
+        redirect('login');
     }
 
     set_session_theme($user['theme'] ?? 'light');
@@ -109,7 +109,7 @@ function require_auth(): void
 function require_guest(): void
 {
     if (is_logged_in() && current_user() !== null) {
-        redirect('dashboard.php');
+        redirect('dashboard');
     }
 }
 

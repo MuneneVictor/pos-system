@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             flash('success', 'Role created. You can now assign its permissions.');
-            redirect('users/permissions.php?role=' . $roleId);
+            redirect('users/permissions?role=' . $roleId);
         }
     }
 
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
 
                 flash('success', 'Role status updated.');
-                redirect('users/roles.php');
+                redirect('users/roles');
             }
         }
     }
@@ -182,7 +182,7 @@ require BASE_PATH . '/includes/sidebar.php';
                                 <span class="subtle-badge">Full access</span>
                             <?php else: ?>
                                 <a class="button button--secondary button--small"
-                                   href="<?= e(app_url('users/permissions.php?role=' . (int) $role['id'])) ?>">
+                                   href="<?= e(app_url('users/permissions?role=' . (int) $role['id'])) ?>">
                                     Manage permissions
                                 </a>
                             <?php endif; ?>

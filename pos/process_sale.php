@@ -170,10 +170,9 @@ try {
         if (!$method) {
             throw new RuntimeException('One payment method is unavailable.');
         }
+        // Payment reference is optional for every payment method.
+        // If one is supplied, it is still saved normally below.
         $reference = trim((string) ($rawPayment['reference_no'] ?? ''));
-        if ((int) $method['requires_reference'] === 1 && $reference === '') {
-            throw new RuntimeException($method['name'] . ' requires a payment reference.');
-        }
         if ($method['method_type'] === 'credit') {
             if (!user_can('credit.sell')) {
                 throw new RuntimeException('You do not have permission to make credit sales.');

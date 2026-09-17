@@ -361,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'Product added successfully with SKU ' . $data['sku'] . '.'
             );
 
-            redirect('products/view.php?id=' . $productId);
+            redirect('products/view?id=' . $productId);
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -401,7 +401,7 @@ $isEdit = false;
     <main class="content">
         <div class="page-toolbar">
             <div>
-                <a class="back-link" href="<?= e(app_url('products/index.php')) ?>">
+                <a class="back-link" href="<?= e(app_url('products/index')) ?>">
                     ← Back to products
                 </a>
                 <h2>Add product</h2>
@@ -421,7 +421,7 @@ $isEdit = false;
             <?php require __DIR__ . '/_form.php'; ?>
 
             <div class="form-actions">
-                <a class="button button--ghost" href="<?= e(app_url('products/index.php')) ?>">
+                <a class="button button--ghost" href="<?= e(app_url('products/index')) ?>">
                     Cancel
                 </a>
                 <button class="button button--primary" type="submit">

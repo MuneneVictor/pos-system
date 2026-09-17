@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'app' => [
-        'name' => 'Wambowa Carpets POS',
+        'name' => 'Wambo Wa Carpets POS',
         'environment' => 'development',
         'debug' => false,
         'timezone' => 'Africa/Nairobi',
@@ -12,7 +12,7 @@ return [
     ],
 
     'session' => [
-        'name' => 'wambowa_carpets_session',
+        'name' => 'Wambo Wa_carpets_session',
         'lifetime' => 3600,
         'httponly' => true,
         'samesite' => 'Lax',

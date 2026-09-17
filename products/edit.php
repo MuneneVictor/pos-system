@@ -8,7 +8,7 @@ $productId = max(0, (int) ($_GET['id'] ?? 0));
 $stmt = db()->prepare('SELECT * FROM products WHERE id = :id LIMIT 1');
 $stmt->execute([':id' => $productId]);
 $product = $stmt->fetch();
-if (!$product) { flash('error', 'Product not found.'); redirect('products/index.php'); }
+if (!$product) { flash('error', 'Product not found.'); redirect('products/index'); }
 
 $categories = db()->query('SELECT id, name FROM categories WHERE status = "active" ORDER BY name')->fetchAll();
 $units = db()->query('SELECT id, name, short_name, allows_decimal FROM units WHERE is_active = 1 ORDER BY name')->fetchAll();
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ['name'=>$data['name'],'sku'=>$data['sku'],'selling_price'=>cents_to_decimal($sellingCents),'status'=>$data['status']]
             );
             flash('success','Product updated successfully.');
-            redirect('products/view.php?id='.$productId);
+            redirect('products/view?id='.$productId);
         } catch (Throwable $e) {
             if ($newImageUploaded && $imagePath) {
                 $newFile = BASE_PATH . '/' . ltrim($imagePath, '/');
@@ -108,7 +108,7 @@ $pageTitle='Edit Product'; $pageStyles=['admin.css','commerce.css'];
 require BASE_PATH.'/includes/header.php'; require BASE_PATH.'/includes/sidebar.php'; $isEdit=true;
 ?>
 <div class="app-main"><?php require BASE_PATH.'/includes/navbar.php'; ?><main class="content">
-<div class="page-toolbar"><div><a class="back-link" href="<?= e(app_url('products/view.php?id='.$productId)) ?>">← Back to product</a><h2>Edit product</h2><p>Stock quantities are changed only through controlled inventory movements.</p></div></div>
+<div class="page-toolbar"><div><a class="back-link" href="<?= e(app_url('products/view?id='.$productId)) ?>">← Back to product</a><h2>Edit product</h2><p>Stock quantities are changed only through controlled inventory movements.</p></div></div>
 <?php if(isset($errors['general'])):?><div class="app-alert app-alert--danger"><?=e($errors['general'])?></div><?php endif;?>
-<form method="post" enctype="multipart/form-data" class="form-card"><?=csrf_field()?><?php require __DIR__.'/_form.php';?><div class="form-actions"><a class="button button--ghost" href="<?=e(app_url('products/view.php?id='.$productId))?>">Cancel</a><button class="button button--primary" type="submit">Save changes</button></div></form>
+<form method="post" enctype="multipart/form-data" class="form-card"><?=csrf_field()?><?php require __DIR__.'/_form.php';?><div class="form-actions"><a class="button button--ghost" href="<?=e(app_url('products/view?id='.$productId))?>">Cancel</a><button class="button button--primary" type="submit">Save changes</button></div></form>
 </main></div><?php require BASE_PATH.'/includes/footer.php';?>

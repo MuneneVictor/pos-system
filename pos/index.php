@@ -74,7 +74,7 @@ require BASE_PATH . '/includes/sidebar.php';
                            placeholder="Scan barcode or search product / SKU" autofocus>
                     <kbd>F2</kbd>
                 </div>
-                <a class="button button--secondary" href="<?= e(app_url('pos/held_sales.php')) ?>">Held sales</a>
+                <a class="button button--secondary" href="<?= e(app_url('pos/held_sales')) ?>">Held sales</a>
             </div>
 
             <div class="pos-search-status" data-search-status>
@@ -114,7 +114,7 @@ require BASE_PATH . '/includes/sidebar.php';
                 <div class="pos-customer-search">
                     <input id="customer-search" type="search" autocomplete="off" placeholder="Search customer name / phone">
                     <?php if (user_can('customers.create')): ?>
-                        <a href="<?= e(app_url('customers/add.php')) ?>" target="_self" title="Add customer">+</a>
+                        <a href="<?= e(app_url('customers/add')) ?>" target="_self" title="Add customer">+</a>
                     <?php endif; ?>
                 </div>
                 <div class="customer-search-results" data-customer-results></div>
@@ -167,15 +167,22 @@ window.POS_CONFIG = <?= json_encode([
     'csrf' => csrf_token(),
     'currency' => APP_CURRENCY_SYMBOL,
     'appBase' => app_url(''),
-    'searchUrl' => app_url('pos/search_products.php'),
-    'customerSearchUrl' => app_url('customers/search.php'),
-    'processUrl' => app_url('pos/process_sale.php'),
-    'holdUrl' => app_url('pos/hold_sale.php'),
-    'receiptBase' => app_url('pos/receipt.php?id='),
-    'heldListUrl' => app_url('pos/held_sales.php'),
+    'searchUrl' => app_url('pos/search_products'),
+    'customerSearchUrl' => app_url('customers/search'),
+    'processUrl' => app_url('pos/process_sale'),
+    'holdUrl' => app_url('pos/hold_sale'),
+    'receiptBase' => app_url('pos/receipt?id='),
+    'heldListUrl' => app_url('pos/held_sales'),
     'canDiscount' => user_can('pos.discount'),
     'canPriceOverride' => user_can('pos.price_override'),
-    'paymentMethods' => $paymentMethods,
+    // Payment references are optional for every payment method in the POS UI.
+    'paymentMethods' => array_map(
+        static function (array $method): array {
+            $method['requires_reference'] = 0;
+            return $method;
+        },
+        $paymentMethods
+    ),
     'heldSale' => $heldSale,
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
 </script>

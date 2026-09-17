@@ -9,7 +9,7 @@ $registrationOpen = registration_is_open();
 
 if (!$registrationOpen) {
     flash('info', 'Initial registration is already complete. Please sign in.');
-    redirect('login.php');
+    redirect('login');
 }
 
 $errors = [];
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             clear_old_input();
             flash('success', 'Owner account created successfully. Sign in using your username and password.');
-            redirect('login.php');
+            redirect('login');
         } catch (Throwable $exception) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();

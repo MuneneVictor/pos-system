@@ -91,10 +91,10 @@ require BASE_PATH . '/includes/sidebar.php';
             </div>
             <div class="toolbar-actions">
                 <?php if (user_can('products.update')): ?>
-                    <a class="button button--secondary" href="<?= e(app_url('products/categories.php')) ?>">Categories & units</a>
+                    <a class="button button--secondary" href="<?= e(app_url('products/categories')) ?>">Categories & units</a>
                 <?php endif; ?>
                 <?php if (user_can('products.create')): ?>
-                    <a class="button button--primary" href="<?= e(app_url('products/add.php')) ?>">+ Add product</a>
+                    <a class="button button--primary" href="<?= e(app_url('products/add')) ?>">+ Add product</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -129,7 +129,7 @@ require BASE_PATH . '/includes/sidebar.php';
                 </select>
                 <button class="button button--secondary" type="submit">Filter</button>
                 <?php if ($q !== '' || $categoryId || $stock !== '' || $status !== 'active'): ?>
-                    <a class="button button--ghost" href="<?= e(app_url('products/index.php')) ?>">Clear</a>
+                    <a class="button button--ghost" href="<?= e(app_url('products/index')) ?>">Clear</a>
                 <?php endif; ?>
             </form>
 
@@ -161,7 +161,7 @@ require BASE_PATH . '/includes/sidebar.php';
                             <td><?= e(money($product['average_cost'])) ?></td>
                             <td><strong><?= e(money($product['selling_price'])) ?></strong><small class="table-note">/<?= e($product['short_name']) ?></small></td>
                             <td><span class="status-badge status-badge--<?= e($product['status']) ?>"><?= e(ucfirst($product['status'])) ?></span></td>
-                            <td class="table-action-cell"><a class="table-action" href="<?= e(app_url('products/view.php?id=' . (int) $product['id'])) ?>">View</a></td>
+                            <td class="table-action-cell"><a class="table-action" href="<?= e(app_url('products/view?id=' . (int) $product['id'])) ?>">View</a></td>
                         </tr>
                     <?php endforeach; endif; ?>
                     </tbody>
@@ -174,7 +174,7 @@ require BASE_PATH . '/includes/sidebar.php';
                     <nav class="pagination">
                         <?php for ($p = max(1, $page - 2); $p <= min($totalPages, $page + 2); $p++):
                             $query = $_GET; $query['page'] = $p; ?>
-                            <a class="<?= $p === $page ? 'is-current' : '' ?>" href="<?= e(app_url('products/index.php?' . http_build_query($query))) ?>"><?= $p ?></a>
+                            <a class="<?= $p === $page ? 'is-current' : '' ?>" href="<?= e(app_url('products/index?' . http_build_query($query))) ?>"><?= $p ?></a>
                         <?php endfor; ?>
                     </nav>
                 <?php endif; ?>

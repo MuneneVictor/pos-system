@@ -33,11 +33,11 @@ $canSuppliers = user_can('suppliers.view');
 | Date range filter
 |--------------------------------------------------------------------------
 */
-$period = trim((string) ($_GET['period'] ?? 'today'));
+$period = trim((string) ($_GET['period'] ?? 'month'));
 $allowedPeriods = ['today', 'yesterday', 'week', 'month', 'custom'];
 
 if (!in_array($period, $allowedPeriods, true)) {
-    $period = 'today';
+    $period = 'month';
 }
 
 $today = new DateTimeImmutable('today');
@@ -80,8 +80,10 @@ switch ($period) {
             $endDateExclusive = $to->modify('+1 day');
             $periodLabel = $from->format('d M Y') . ' – ' . $to->format('d M Y');
         } else {
-            $period = 'today';
-            $periodLabel = 'Today';
+            $period = 'month';
+            $startDate = $today->modify('first day of this month');
+            $endDateExclusive = $today->modify('+1 day');
+            $periodLabel = 'This Month';
         }
         break;
 }
@@ -460,7 +462,7 @@ require BASE_PATH . '/includes/sidebar.php';
 
         <section class="dashboard-hero">
             <div>
-                <span class="dashboard-hero__eyebrow">Wambowa Carpets</span>
+                <span class="dashboard-hero__eyebrow">Wambo Wa Carpets</span>
                 <h2><?= e($greeting) ?>, <?= e($firstName) ?>.</h2>
                 <p>
                     <?= current_user_is_owner()
@@ -498,6 +500,14 @@ require BASE_PATH . '/includes/sidebar.php';
                 </div>
 
                 <button class="button button--secondary" type="submit">Apply</button>
+                <a class="button button--primary"
+                   href="<?= e(app_url('reports/system_report?' . http_build_query([
+                       'period' => $period,
+                       'from' => $period === 'custom' ? (string) ($_GET['from'] ?? '') : '',
+                       'to' => $period === 'custom' ? (string) ($_GET['to'] ?? '') : '',
+                   ]))) ?>">
+                    Download System Report (PDF)
+                </a>
             </form>
         </section>
 
@@ -596,7 +606,7 @@ require BASE_PATH . '/includes/sidebar.php';
                             <h3>7-day sales trend</h3>
                         </div>
                         <?php if (user_can('sales.view')): ?>
-                            <a href="<?= e(app_url('sales/index.php')) ?>">View sales →</a>
+                            <a href="<?= e(app_url('sales/index')) ?>">View sales →</a>
                         <?php endif; ?>
                     </div>
 
@@ -682,7 +692,7 @@ require BASE_PATH . '/includes/sidebar.php';
                             <h3>Low stock</h3>
                         </div>
                         <?php if (user_can('inventory.view')): ?>
-                            <a href="<?= e(app_url('inventory/low_stock.php')) ?>">View inventory →</a>
+                            <a href="<?= e(app_url('inventory/low_stock')) ?>">View inventory →</a>
                         <?php endif; ?>
                     </div>
 
@@ -715,7 +725,7 @@ require BASE_PATH . '/includes/sidebar.php';
                             <span class="dashboard-section-kicker">Receivables</span>
                             <h3>Top debtors</h3>
                         </div>
-                        <a href="<?= e(app_url('credit/debts.php')) ?>">View debtors →</a>
+                        <a href="<?= e(app_url('credit/debts')) ?>">View debtors →</a>
                     </div>
 
                     <?php if (!$topDebtors): ?>
@@ -744,7 +754,7 @@ require BASE_PATH . '/includes/sidebar.php';
                             <h3>Recent sales</h3>
                         </div>
                         <?php if (user_can('sales.view')): ?>
-                            <a href="<?= e(app_url('sales/index.php')) ?>">All sales →</a>
+                            <a href="<?= e(app_url('sales/index')) ?>">All sales →</a>
                         <?php endif; ?>
                     </div>
 
@@ -768,7 +778,7 @@ require BASE_PATH . '/includes/sidebar.php';
                                     <tr>
                                         <td>
                                             <?php if (user_can('sales.view_details')): ?>
-                                                <a href="<?= e(app_url('sales/view.php?id=' . (int) $sale['id'])) ?>">
+                                                <a href="<?= e(app_url('sales/view?id=' . (int) $sale['id'])) ?>">
                                                     <?= e($sale['sale_no']) ?>
                                                 </a>
                                             <?php else: ?>
@@ -797,7 +807,7 @@ require BASE_PATH . '/includes/sidebar.php';
                             <h3>Recent purchases</h3>
                         </div>
                         <?php if (user_can('purchases.view')): ?>
-                            <a href="<?= e(app_url('purchases/index.php')) ?>">View purchases →</a>
+                            <a href="<?= e(app_url('purchases/index')) ?>">View purchases →</a>
                         <?php endif; ?>
                     </div>
 
@@ -860,49 +870,49 @@ require BASE_PATH . '/includes/sidebar.php';
 
             <div class="quick-actions-grid">
                 <?php if (user_can('pos.use')): ?>
-                    <a class="quick-action" href="<?= e(app_url('pos/index.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('pos/index')) ?>">
                         <span>▣</span><div><strong>New sale</strong><small>Open Point of Sale</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if (user_can('products.create')): ?>
-                    <a class="quick-action" href="<?= e(app_url('products/add.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('products/add')) ?>">
                         <span>◇</span><div><strong>Add product</strong><small>Create inventory item</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if (user_can('inventory.adjust')): ?>
-                    <a class="quick-action" href="<?= e(app_url('inventory/stock_adjustment.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('inventory/stock_adjustment')) ?>">
                         <span>▦</span><div><strong>Adjust stock</strong><small>Record stock movement</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if (user_can('purchases.create')): ?>
-                    <a class="quick-action" href="<?= e(app_url('purchases/add.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('purchases/add')) ?>">
                         <span>↓</span><div><strong>New purchase</strong><small>Record supplier purchase</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if (user_can('customers.create')): ?>
-                    <a class="quick-action" href="<?= e(app_url('customers/add.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('customers/add')) ?>">
                         <span>◎</span><div><strong>Add customer</strong><small>Create customer profile</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if (user_can('credit.record_payment')): ?>
-                    <a class="quick-action" href="<?= e(app_url('credit/debts.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('credit/debts')) ?>">
                         <span>◫</span><div><strong>Record debt payment</strong><small>Manage customer balances</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if (user_can('users.create')): ?>
-                    <a class="quick-action" href="<?= e(app_url('users/add.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('users/add')) ?>">
                         <span>♙</span><div><strong>Add staff</strong><small>Create staff account</small></div>
                     </a>
                 <?php endif; ?>
 
                 <?php if ($canSuppliers): ?>
-                    <a class="quick-action" href="<?= e(app_url('suppliers/index.php')) ?>">
+                    <a class="quick-action" href="<?= e(app_url('suppliers/index')) ?>">
                         <span>⌂</span><div><strong>Suppliers</strong><small><?= e((string) $activeSuppliers) ?> active supplier(s)</small></div>
                     </a>
                 <?php endif; ?>

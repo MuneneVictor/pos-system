@@ -6,7 +6,7 @@ require_once __DIR__ . '/config/bootstrap.php';
 require_guest();
 
 if (registration_is_open()) {
-    redirect('auth/register.php');
+    redirect('auth/register');
 }
 
 $errors = [];
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 (int) $user['id']
             );
 
-            redirect('dashboard.php');
+            redirect('dashboard');
         }
 
         if ($user && $user['status'] !== 'inactive') {
