@@ -1,9 +1,10 @@
+SET FOREIGN_KEY_CHECKS=0;
 -- phpMyAdmin SQL Dump
 -- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 17, 2026 at 04:28 PM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Sep 18, 2026 at 05:55 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.30
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shop_pos`
+-- Database: `wambocarpets_pos`
 --
 
 -- --------------------------------------------------------
@@ -40,58 +41,6 @@ CREATE TABLE `audit_logs` (
   `user_agent` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `audit_logs`
---
-
-INSERT INTO `audit_logs` (`id`, `user_id`, `action`, `module`, `record_id`, `description`, `old_values`, `new_values`, `ip_address`, `user_agent`, `created_at`) VALUES
-(1, 1, 'user_registered', 'auth', 1, 'Initial Administrator/Owner account registered.', NULL, '{\"role\": \"owner\", \"email\": \"victormunene207@gmail.com\", \"username\": \"munene\", \"full_name\": \"Victor Munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 15:15:31'),
-(2, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 15:15:54'),
-(3, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 15:20:51'),
-(4, 1, 'user_updated', 'users', 1, 'Staff account updated for Victor Munene.', '{\"email\": \"victormunene207@gmail.com\", \"status\": \"active\", \"role_id\": 1, \"username\": \"munene\", \"branch_id\": 1, \"full_name\": \"Victor Munene\"}', '{\"email\": \"victormunene207@gmail.com\", \"status\": \"active\", \"role_id\": 1, \"username\": \"munene\", \"branch_id\": 1, \"full_name\": \"Victor Munene\", \"password_changed\": false}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 15:33:41'),
-(5, 1, 'category_created', 'products', 1, 'Category created: Carpets.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 15:54:15'),
-(6, 1, 'product_created', 'products', 1, 'Product created: Marvel Carpet.', NULL, '{\"sku\": \"001\", \"opening_stock\": \"20.000\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 15:55:38'),
-(7, 1, 'customer_created', 'customers', 1, 'Customer created: Victor Munene.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 15:56:44'),
-(8, 1, 'sale_created', 'sales', 1, 'Sale completed: SAL-000001.', NULL, '{\"cogs\": \"1500.00\", \"total\": \"3000.00\", \"credit\": \"0.00\", \"gross_profit\": \"1500.00\", \"cash_received\": \"3000.00\"}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 16:00:11'),
-(9, 1, 'stock_adjusted', 'inventory', 3, 'Stock adjusted for Marvel Carpet.', '{\"stock\": \"19.000\"}', '{\"stock\": \"21.000\", \"reason\": \"Adjusted stock\"}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 16:05:58'),
-(10, 1, 'sale_held', 'sales', 2, 'Sale held: SAL-000002.', NULL, '{\"total\": \"3000.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 16:17:41'),
-(11, 1, 'customer_created', 'customers', 2, 'Customer created: Victor Munene.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 16:19:16'),
-(12, 1, 'sale_created', 'sales', 3, 'Sale completed: SAL-000003.', NULL, '{\"cogs\": \"1500.00\", \"total\": \"3000.00\", \"credit\": \"1000.00\", \"gross_profit\": \"1500.00\", \"cash_received\": \"2000.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 16:27:15'),
-(13, 1, 'logout', 'auth', 1, 'User signed out.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 16:29:22'),
-(14, 1, 'user_updated', 'users', 1, 'Staff account updated for Victor Munene.', '{\"email\": \"victormunene207@gmail.com\", \"status\": \"active\", \"role_id\": 1, \"username\": \"munene\", \"branch_id\": 1, \"full_name\": \"Victor Munene\"}', '{\"email\": \"victormunene207@gmail.com\", \"status\": \"active\", \"role_id\": 1, \"username\": \"munene\", \"branch_id\": 1, \"full_name\": \"Victor Munene\", \"password_changed\": true}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 17:25:36'),
-(15, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 17:26:10'),
-(16, 1, 'product_created', 'products', 2, 'Product created: Fluffy Carpets (3m).', NULL, '{\"sku\": \"002\", \"opening_stock\": \"15.000\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 17:33:30'),
-(17, 1, 'user_created', 'users', 2, 'Staff account created for munene vic.', NULL, '{\"email\": \"vdebmunene207@gmail.com\", \"status\": \"active\", \"role_id\": 3, \"username\": \"vic\", \"branch_id\": 1}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 17:36:06'),
-(18, 1, 'logout', 'auth', 1, 'User signed out.', NULL, NULL, '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 17:50:08'),
-(19, 2, 'login', 'auth', 2, 'User signed in successfully.', NULL, '{\"username\": \"vic\"}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 17:51:22'),
-(20, 2, 'customer_payment_recorded', 'credit', 1, 'Customer payment recorded: CPY-000001.', NULL, '{\"amount\": \"1000.00\", \"method\": \"Cash\", \"customer_id\": 1}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 17:55:54'),
-(21, 2, 'sale_created', 'sales', 4, 'Sale completed: SAL-000004.', NULL, '{\"cogs\": \"1000.00\", \"total\": \"2500.00\", \"credit\": \"0.00\", \"gross_profit\": \"1500.00\", \"cash_received\": \"2500.00\"}', '192.168.100.9', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 17:58:08'),
-(22, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 20:31:47'),
-(23, 1, 'user_updated', 'users', 2, 'Staff account updated for munene vic.', '{\"email\": \"vdebmunene207@gmail.com\", \"status\": \"active\", \"role_id\": 3, \"username\": \"vic\", \"branch_id\": 1, \"full_name\": \"munene vic\"}', '{\"email\": \"vdebmunene207@gmail.com\", \"status\": \"active\", \"role_id\": 2, \"username\": \"vic\", \"branch_id\": 1, \"full_name\": \"munene vic\", \"password_changed\": false}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:22:19'),
-(24, 1, 'logout', 'auth', 1, 'User signed out.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:22:29'),
-(25, 2, 'login', 'auth', 2, 'User signed in successfully.', NULL, '{\"username\": \"vic\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:22:47'),
-(26, 2, 'supplier_created', 'suppliers', 1, 'Supplier created: vimarktech.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:24:57'),
-(27, 2, 'purchase_created', 'purchases', 1, 'Purchase created: PUR-000001.', NULL, '{\"total\": \"15000.00\", \"supplier_id\": 1}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:25:42'),
-(28, 2, 'logout', 'auth', 2, 'User signed out.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:27:35'),
-(29, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:28:27'),
-(30, 1, 'sale_created', 'sales', 5, 'Sale completed: SAL-000005.', NULL, '{\"cogs\": \"2000.00\", \"total\": \"5000.00\", \"credit\": \"1000.00\", \"gross_profit\": \"3000.00\", \"cash_received\": \"4000.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:34:24'),
-(31, 1, 'customer_payment_recorded', 'credit', 2, 'Customer payment recorded: CPY-000002.', NULL, '{\"amount\": \"500.00\", \"method\": \"Cash\", \"customer_id\": 2}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-13 21:35:58'),
-(32, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '192.168.100.8', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 22:32:50'),
-(33, 1, 'sale_created', 'sales', 6, 'Sale completed: SAL-000006.', NULL, '{\"cogs\": \"3000.00\", \"total\": \"6000.00\", \"credit\": \"0.00\", \"gross_profit\": \"3000.00\", \"cash_received\": \"6000.00\"}', '192.168.100.8', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 22:36:03'),
-(34, 1, 'sale_created', 'sales', 7, 'Sale completed: SAL-000007.', NULL, '{\"cogs\": \"2000.00\", \"total\": \"5000.00\", \"credit\": \"0.00\", \"gross_profit\": \"3000.00\", \"cash_received\": \"5000.00\"}', '192.168.100.8', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-13 22:48:57'),
-(35, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '192.168.100.8', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', '2026-09-15 20:24:27'),
-(36, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-15 20:25:54'),
-(37, 1, 'category_created', 'products', 2, 'Category created: Curtains.', NULL, NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-15 20:27:44'),
-(38, 1, 'product_created', 'products', 3, 'Product created: 2m curtains.', NULL, '{\"sku\": \"003\", \"opening_stock\": \"20.000\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-15 20:29:04'),
-(39, 1, 'sale_created', 'sales', 8, 'Sale completed: SAL-000008.', NULL, '{\"cogs\": \"2000.00\", \"total\": \"4500.00\", \"credit\": \"0.00\", \"gross_profit\": \"2500.00\", \"cash_received\": \"4500.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-15 20:30:32'),
-(40, 1, 'sale_created', 'sales', 9, 'Sale completed: SAL-000009.', NULL, '{\"cogs\": \"1000.00\", \"total\": \"2500.00\", \"credit\": \"0.00\", \"gross_profit\": \"1500.00\", \"cash_received\": \"2500.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-15 20:32:05'),
-(41, 1, 'customer_payment_recorded', 'credit', 3, 'Customer payment recorded: CPY-000003.', NULL, '{\"amount\": \"500.00\", \"method\": \"Cash\", \"customer_id\": 2}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-15 20:33:37'),
-(42, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-17 12:04:26'),
-(43, 1, 'login', 'auth', 1, 'User signed in successfully.', NULL, '{\"username\": \"munene\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-17 12:29:46'),
-(44, 1, 'sale_created', 'sales', 10, 'Sale completed: SAL-000010.', NULL, '{\"cogs\": \"1500.00\", \"total\": \"3000.00\", \"credit\": \"0.00\", \"gross_profit\": \"1500.00\", \"cash_received\": \"3000.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-17 12:41:57'),
-(45, 1, 'sale_created', 'sales', 11, 'Sale completed: SAL-000011.', NULL, '{\"cogs\": \"1000.00\", \"total\": \"2500.00\", \"credit\": \"500.00\", \"gross_profit\": \"1500.00\", \"cash_received\": \"2000.00\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-17 12:57:33'),
-(46, 1, 'customer_payment_recorded', 'credit', 4, 'Customer payment recorded: CPY-000004.', NULL, '{\"amount\": \"500.00\", \"method\": \"M-Pesa\", \"customer_id\": 1}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-09-17 13:02:25');
 
 -- --------------------------------------------------------
 
@@ -136,25 +85,6 @@ CREATE TABLE `cash_movements` (
   `created_by` bigint UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `cash_movements`
---
-
-INSERT INTO `cash_movements` (`id`, `cash_session_id`, `branch_id`, `movement_type`, `reference_type`, `reference_id`, `amount`, `description`, `created_by`, `created_at`) VALUES
-(1, NULL, 1, 'sale', 'sale', 1, 2000.00, 'Cash sale SAL-000001', 1, '2026-09-13 16:00:11'),
-(2, NULL, 1, 'sale', 'sale', 1, 1000.00, 'Cash sale SAL-000001', 1, '2026-09-13 16:00:11'),
-(3, NULL, 1, 'sale', 'sale', 3, 2000.00, 'Cash sale SAL-000003', 1, '2026-09-13 16:27:15'),
-(4, NULL, 1, 'customer_payment', 'customer_payment', 1, 1000.00, 'Customer payment CPY-000001', 2, '2026-09-13 17:55:54'),
-(5, NULL, 1, 'sale', 'sale', 4, 2000.00, 'Cash sale SAL-000004', 2, '2026-09-13 17:58:08'),
-(6, NULL, 1, 'sale', 'sale', 5, 4000.00, 'Cash sale SAL-000005', 1, '2026-09-13 21:34:24'),
-(7, NULL, 1, 'customer_payment', 'customer_payment', 2, 500.00, 'Customer payment CPY-000002', 1, '2026-09-13 21:35:58'),
-(8, NULL, 1, 'sale', 'sale', 6, 6000.00, 'Cash sale SAL-000006', 1, '2026-09-13 22:36:03'),
-(9, NULL, 1, 'sale', 'sale', 7, 5000.00, 'Cash sale SAL-000007', 1, '2026-09-13 22:48:57'),
-(10, NULL, 1, 'sale', 'sale', 8, 3000.00, 'Cash sale SAL-000008', 1, '2026-09-15 20:30:32'),
-(11, NULL, 1, 'sale', 'sale', 9, 2500.00, 'Cash sale SAL-000009', 1, '2026-09-15 20:32:05'),
-(12, NULL, 1, 'customer_payment', 'customer_payment', 3, 500.00, 'Customer payment CPY-000003', 1, '2026-09-15 20:33:37'),
-(13, NULL, 1, 'sale', 'sale', 11, 2000.00, 'Cash sale SAL-000011', 1, '2026-09-17 12:57:33');
 
 -- --------------------------------------------------------
 
@@ -211,14 +141,6 @@ CREATE TABLE `categories` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `description`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Carpets', 'carpets', NULL, 'active', 1, '2026-09-13 15:54:15', '2026-09-13 15:54:15'),
-(2, NULL, 'Curtains', 'curtains', NULL, 'active', 1, '2026-09-15 20:27:44', '2026-09-15 20:27:44');
-
 -- --------------------------------------------------------
 
 --
@@ -239,14 +161,6 @@ CREATE TABLE `customers` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `customers`
---
-
-INSERT INTO `customers` (`id`, `name`, `phone`, `email`, `address`, `notes`, `credit_limit`, `account_balance`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'Victor Munene', '0711529618', 'victormunene207@gmail.com', '0711529618', NULL, 0.00, 0.00, 'active', 1, '2026-09-13 15:56:44', '2026-09-17 13:02:25'),
-(2, 'Victor Munene', '0711529618', 'victormunene207@gmail.com', '0711529618', NULL, 0.00, 0.00, 'active', 1, '2026-09-13 16:19:16', '2026-09-15 20:33:37');
 
 -- --------------------------------------------------------
 
@@ -270,19 +184,6 @@ CREATE TABLE `customer_ledger` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `customer_ledger`
---
-
-INSERT INTO `customer_ledger` (`id`, `customer_id`, `entry_date`, `entry_type`, `sale_id`, `customer_payment_id`, `reference_no`, `description`, `debit_amount`, `credit_amount`, `balance_after`, `created_by`, `created_at`) VALUES
-(1, 1, '2026-09-13 16:27:15', 'credit_sale', 3, NULL, 'SAL-000003', 'Credit sale SAL-000003', 1000.00, 0.00, 1000.00, 1, '2026-09-13 16:27:15'),
-(2, 1, '2026-09-13 17:55:54', 'payment', NULL, 1, 'CPY-000001', 'Customer debt payment', 0.00, 1000.00, 0.00, 2, '2026-09-13 17:55:54'),
-(3, 2, '2026-09-13 21:34:24', 'credit_sale', 5, NULL, 'SAL-000005', 'Credit sale SAL-000005', 1000.00, 0.00, 1000.00, 1, '2026-09-13 21:34:24'),
-(4, 2, '2026-09-13 21:35:58', 'payment', NULL, 2, 'CPY-000002', 'Customer debt payment', 0.00, 500.00, 500.00, 1, '2026-09-13 21:35:58'),
-(5, 2, '2026-09-15 20:33:37', 'payment', NULL, 3, 'CPY-000003', 'Customer debt payment', 0.00, 500.00, 0.00, 1, '2026-09-15 20:33:37'),
-(6, 1, '2026-09-17 12:57:33', 'credit_sale', 11, NULL, 'SAL-000011', 'Credit sale SAL-000011', 500.00, 0.00, 500.00, 1, '2026-09-17 12:57:33'),
-(7, 1, '2026-09-17 13:02:25', 'payment', NULL, 4, 'CPY-000004', 'Customer debt payment', 0.00, 500.00, 0.00, 1, '2026-09-17 13:02:25');
-
 -- --------------------------------------------------------
 
 --
@@ -302,16 +203,6 @@ CREATE TABLE `customer_payments` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `customer_payments`
---
-
-INSERT INTO `customer_payments` (`id`, `customer_id`, `payment_no`, `payment_method_id`, `amount`, `reference_no`, `payment_date`, `notes`, `received_by`, `created_at`) VALUES
-(1, 1, 'CPY-000001', 1, 1000.00, NULL, '2026-09-13 17:55:54', NULL, 2, '2026-09-13 17:55:54'),
-(2, 2, 'CPY-000002', 1, 500.00, NULL, '2026-09-13 21:35:58', NULL, 1, '2026-09-13 21:35:58'),
-(3, 2, 'CPY-000003', 1, 500.00, NULL, '2026-09-15 20:33:37', NULL, 1, '2026-09-15 20:33:37'),
-(4, 1, 'CPY-000004', 2, 500.00, NULL, '2026-09-17 13:02:25', NULL, 1, '2026-09-17 13:02:25');
-
 -- --------------------------------------------------------
 
 --
@@ -325,16 +216,6 @@ CREATE TABLE `customer_payment_allocations` (
   `amount` decimal(15,2) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `customer_payment_allocations`
---
-
-INSERT INTO `customer_payment_allocations` (`id`, `customer_payment_id`, `sale_id`, `amount`, `created_at`) VALUES
-(1, 1, 3, 1000.00, '2026-09-13 17:55:54'),
-(2, 2, 5, 500.00, '2026-09-13 21:35:58'),
-(3, 3, 5, 500.00, '2026-09-15 20:33:37'),
-(4, 4, 11, 500.00, '2026-09-17 13:02:25');
 
 -- --------------------------------------------------------
 
@@ -560,15 +441,6 @@ CREATE TABLE `products` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`id`, `category_id`, `unit_id`, `default_supplier_id`, `name`, `sku`, `barcode`, `description`, `buying_price`, `average_cost`, `selling_price`, `minimum_stock`, `current_stock`, `image_path`, `track_stock`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, NULL, 'Marvel Carpet', '001', NULL, '3metres', 1500.00, 1500.0000, 3000.00, 5.000, 17.000, 'uploads/products/44faae87fcbfe72179ed04662f1a4ec1.png', 1, 'active', 1, '2026-09-13 15:55:38', '2026-09-17 12:41:57'),
-(2, 1, 1, NULL, 'Fluffy Carpets (3m)', '002', NULL, NULL, 1000.00, 1000.0000, 2500.00, 5.000, 9.000, NULL, 1, 'active', 1, '2026-09-13 17:33:30', '2026-09-15 20:32:05'),
-(3, 2, 8, NULL, '2m curtains', '003', NULL, NULL, 1000.00, 1000.0000, 2500.00, 5.000, 17.000, NULL, 1, 'active', 1, '2026-09-15 20:29:04', '2026-09-17 12:57:33');
-
 -- --------------------------------------------------------
 
 --
@@ -600,13 +472,6 @@ CREATE TABLE `purchases` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `purchases`
---
-
-INSERT INTO `purchases` (`id`, `branch_id`, `supplier_id`, `purchase_no`, `invoice_reference`, `purchase_date`, `status`, `subtotal`, `discount_amount`, `total_amount`, `amount_paid`, `balance_due`, `payment_status`, `notes`, `created_by`, `received_by`, `received_at`, `cancelled_by`, `cancelled_at`, `cancel_reason`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'PUR-000001', NULL, '2026-09-13 00:00:00', 'ordered', 15000.00, 0.00, 15000.00, 0.00, 15000.00, 'unpaid', NULL, 2, NULL, NULL, NULL, NULL, NULL, '2026-09-13 21:25:42', '2026-09-13 21:25:42');
-
 -- --------------------------------------------------------
 
 --
@@ -624,13 +489,6 @@ CREATE TABLE `purchase_items` (
   `line_total` decimal(15,2) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `purchase_items`
---
-
-INSERT INTO `purchase_items` (`id`, `purchase_id`, `product_id`, `quantity`, `quantity_received`, `unit_cost`, `discount_amount`, `line_total`, `created_at`) VALUES
-(1, 1, 1, 10.000, 0.000, 1500.0000, 0.00, 15000.00, '2026-09-13 21:25:42');
 
 -- --------------------------------------------------------
 
@@ -891,23 +749,6 @@ CREATE TABLE `sales` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `sales`
---
-
-INSERT INTO `sales` (`id`, `branch_id`, `sale_no`, `customer_id`, `sale_date`, `status`, `payment_status`, `subtotal`, `discount_amount`, `total_amount`, `cogs_amount`, `gross_profit`, `amount_paid`, `balance_due`, `change_due`, `notes`, `created_by`, `completed_at`, `voided_by`, `voided_at`, `void_reason`, `created_at`, `updated_at`) VALUES
-(1, 1, 'SAL-000001', NULL, '2026-09-13 16:00:11', 'completed', 'paid', 3000.00, 0.00, 3000.00, 1500.00, 1500.00, 3000.00, 0.00, 0.00, NULL, 1, '2026-09-13 16:00:11', NULL, NULL, NULL, '2026-09-13 16:00:11', '2026-09-13 16:00:11'),
-(2, 1, 'SAL-000002', NULL, '2026-09-13 16:17:41', 'held', 'unpaid', 3000.00, 0.00, 3000.00, 1500.00, 1500.00, 0.00, 3000.00, 0.00, NULL, 1, NULL, NULL, NULL, NULL, '2026-09-13 16:17:41', '2026-09-13 16:17:41'),
-(3, 1, 'SAL-000003', 1, '2026-09-13 16:27:15', 'completed', 'paid', 3000.00, 0.00, 3000.00, 1500.00, 1500.00, 3000.00, 0.00, 0.00, NULL, 1, '2026-09-13 16:27:15', NULL, NULL, NULL, '2026-09-13 16:27:15', '2026-09-13 17:55:54'),
-(4, 1, 'SAL-000004', NULL, '2026-09-13 17:58:08', 'completed', 'paid', 2500.00, 0.00, 2500.00, 1000.00, 1500.00, 2500.00, 0.00, 0.00, NULL, 2, '2026-09-13 17:58:08', NULL, NULL, NULL, '2026-09-13 17:58:08', '2026-09-13 17:58:08'),
-(5, 1, 'SAL-000005', 2, '2026-09-13 21:34:24', 'completed', 'paid', 5000.00, 0.00, 5000.00, 2000.00, 3000.00, 5000.00, 0.00, 0.00, NULL, 1, '2026-09-13 21:34:24', NULL, NULL, NULL, '2026-09-13 21:34:24', '2026-09-15 20:33:37'),
-(6, 1, 'SAL-000006', NULL, '2026-09-13 22:36:03', 'completed', 'paid', 6000.00, 0.00, 6000.00, 3000.00, 3000.00, 6000.00, 0.00, 0.00, NULL, 1, '2026-09-13 22:36:03', NULL, NULL, NULL, '2026-09-13 22:36:03', '2026-09-13 22:36:03'),
-(7, 1, 'SAL-000007', NULL, '2026-09-13 22:48:57', 'completed', 'paid', 5000.00, 0.00, 5000.00, 2000.00, 3000.00, 5000.00, 0.00, 0.00, NULL, 1, '2026-09-13 22:48:57', NULL, NULL, NULL, '2026-09-13 22:48:57', '2026-09-13 22:48:57'),
-(8, 1, 'SAL-000008', NULL, '2026-09-15 20:30:32', 'completed', 'paid', 5000.00, 500.00, 4500.00, 2000.00, 2500.00, 4500.00, 0.00, 0.00, NULL, 1, '2026-09-15 20:30:32', NULL, NULL, NULL, '2026-09-15 20:30:32', '2026-09-15 20:30:32'),
-(9, 1, 'SAL-000009', NULL, '2026-09-15 20:32:05', 'completed', 'paid', 2500.00, 0.00, 2500.00, 1000.00, 1500.00, 2500.00, 0.00, 0.00, NULL, 1, '2026-09-15 20:32:05', NULL, NULL, NULL, '2026-09-15 20:32:05', '2026-09-15 20:32:05'),
-(10, 1, 'SAL-000010', NULL, '2026-09-17 12:41:57', 'completed', 'paid', 3000.00, 0.00, 3000.00, 1500.00, 1500.00, 3000.00, 0.00, 0.00, NULL, 1, '2026-09-17 12:41:57', NULL, NULL, NULL, '2026-09-17 12:41:57', '2026-09-17 12:41:57'),
-(11, 1, 'SAL-000011', 1, '2026-09-17 12:57:33', 'completed', 'paid', 2500.00, 0.00, 2500.00, 1000.00, 1500.00, 2500.00, 0.00, 0.00, NULL, 1, '2026-09-17 12:57:33', NULL, NULL, NULL, '2026-09-17 12:57:33', '2026-09-17 13:02:25');
-
 -- --------------------------------------------------------
 
 --
@@ -931,23 +772,6 @@ CREATE TABLE `sale_items` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `sale_items`
---
-
-INSERT INTO `sale_items` (`id`, `sale_id`, `product_id`, `product_name_snapshot`, `sku_snapshot`, `unit_snapshot`, `quantity`, `unit_price`, `cost_price`, `discount_amount`, `line_total`, `cogs_amount`, `profit_amount`, `created_at`) VALUES
-(1, 1, 1, 'Marvel Carpet', '001', 'm', 1.000, 3000.00, 1500.0000, 0.00, 3000.00, 1500.00, 1500.00, '2026-09-13 16:00:11'),
-(2, 2, 1, 'Marvel Carpet', '001', 'm', 1.000, 3000.00, 1500.0000, 0.00, 3000.00, 1500.00, 1500.00, '2026-09-13 16:17:41'),
-(3, 3, 1, 'Marvel Carpet', '001', 'm', 1.000, 3000.00, 1500.0000, 0.00, 3000.00, 1500.00, 1500.00, '2026-09-13 16:27:15'),
-(4, 4, 2, 'Fluffy Carpets (3m)', '002', 'pc', 1.000, 2500.00, 1000.0000, 0.00, 2500.00, 1000.00, 1500.00, '2026-09-13 17:58:08'),
-(5, 5, 2, 'Fluffy Carpets (3m)', '002', 'pc', 2.000, 2500.00, 1000.0000, 0.00, 5000.00, 2000.00, 3000.00, '2026-09-13 21:34:24'),
-(6, 6, 1, 'Marvel Carpet', '001', 'm', 2.000, 3000.00, 1500.0000, 0.00, 6000.00, 3000.00, 3000.00, '2026-09-13 22:36:03'),
-(7, 7, 2, 'Fluffy Carpets (3m)', '002', 'pc', 2.000, 2500.00, 1000.0000, 0.00, 5000.00, 2000.00, 3000.00, '2026-09-13 22:48:57'),
-(8, 8, 3, '2m curtains', '003', 'qty', 2.000, 2500.00, 1000.0000, 500.00, 4500.00, 2000.00, 2500.00, '2026-09-15 20:30:32'),
-(9, 9, 2, 'Fluffy Carpets (3m)', '002', 'pc', 1.000, 2500.00, 1000.0000, 0.00, 2500.00, 1000.00, 1500.00, '2026-09-15 20:32:05'),
-(10, 10, 1, 'Marvel Carpet', '001', 'm', 1.000, 3000.00, 1500.0000, 0.00, 3000.00, 1500.00, 1500.00, '2026-09-17 12:41:57'),
-(11, 11, 3, '2m curtains', '003', 'qty', 1.000, 2500.00, 1000.0000, 0.00, 2500.00, 1000.00, 1500.00, '2026-09-17 12:57:33');
-
 -- --------------------------------------------------------
 
 --
@@ -964,28 +788,6 @@ CREATE TABLE `sale_payments` (
   `received_by` bigint UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `sale_payments`
---
-
-INSERT INTO `sale_payments` (`id`, `sale_id`, `payment_method_id`, `amount`, `reference_no`, `paid_at`, `received_by`, `created_at`) VALUES
-(1, 1, 1, 2000.00, NULL, '2026-09-13 16:00:11', 1, '2026-09-13 16:00:11'),
-(2, 1, 1, 1000.00, NULL, '2026-09-13 16:00:11', 1, '2026-09-13 16:00:11'),
-(3, 3, 1, 2000.00, NULL, '2026-09-13 16:27:15', 1, '2026-09-13 16:27:15'),
-(4, 3, 5, 1000.00, NULL, '2026-09-13 16:27:15', 1, '2026-09-13 16:27:15'),
-(5, 4, 1, 2000.00, NULL, '2026-09-13 17:58:08', 2, '2026-09-13 17:58:08'),
-(6, 4, 2, 500.00, 'UYTUGFABVG', '2026-09-13 17:58:08', 2, '2026-09-13 17:58:08'),
-(7, 5, 1, 4000.00, NULL, '2026-09-13 21:34:24', 1, '2026-09-13 21:34:24'),
-(8, 5, 5, 1000.00, NULL, '2026-09-13 21:34:24', 1, '2026-09-13 21:34:24'),
-(9, 6, 1, 6000.00, NULL, '2026-09-13 22:36:03', 1, '2026-09-13 22:36:03'),
-(10, 7, 1, 5000.00, NULL, '2026-09-13 22:48:57', 1, '2026-09-13 22:48:57'),
-(11, 8, 1, 3000.00, NULL, '2026-09-15 20:30:32', 1, '2026-09-15 20:30:32'),
-(12, 8, 2, 1500.00, 'ghgfhghh', '2026-09-15 20:30:32', 1, '2026-09-15 20:30:32'),
-(13, 9, 1, 2500.00, NULL, '2026-09-15 20:32:05', 1, '2026-09-15 20:32:05'),
-(14, 10, 2, 3000.00, NULL, '2026-09-17 12:41:57', 1, '2026-09-17 12:41:57'),
-(15, 11, 1, 2000.00, NULL, '2026-09-17 12:57:33', 1, '2026-09-17 12:57:33'),
-(16, 11, 5, 500.00, NULL, '2026-09-17 12:57:33', 1, '2026-09-17 12:57:33');
 
 -- --------------------------------------------------------
 
@@ -1009,7 +811,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `setting_key`, `setting_value`, `setting_type`, `is_public`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'business.name', 'Wambowa Carpets', 'string', 1, NULL, '2026-09-13 15:04:44', '2026-09-13 15:04:44'),
+(1, 'business.name', 'Wambo Wa Carpets', 'string', 1, NULL, '2026-09-13 15:04:44', '2026-09-18 17:52:45'),
 (2, 'business.currency', 'KES', 'string', 1, NULL, '2026-09-13 15:04:44', '2026-09-13 15:04:44'),
 (3, 'business.currency_symbol', 'KSh', 'string', 1, NULL, '2026-09-13 15:04:44', '2026-09-13 15:04:44'),
 (4, 'business.timezone', 'Africa/Nairobi', 'string', 1, NULL, '2026-09-13 15:04:44', '2026-09-13 15:04:44'),
@@ -1043,26 +845,6 @@ CREATE TABLE `stock_movements` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `stock_movements`
---
-
-INSERT INTO `stock_movements` (`id`, `branch_id`, `product_id`, `movement_type`, `reference_type`, `reference_id`, `reference_no`, `quantity_change`, `unit_cost`, `stock_before`, `stock_after`, `reason`, `created_by`, `created_at`) VALUES
-(1, 1, 1, 'opening_stock', 'product', 1, '001', 20.000, 1500.0000, 0.000, 20.000, 'Opening stock', 1, '2026-09-13 15:55:38'),
-(2, 1, 1, 'sale', 'sale', 1, 'SAL-000001', -1.000, 1500.0000, 20.000, 19.000, 'POS sale', 1, '2026-09-13 16:00:11'),
-(3, 1, 1, 'adjustment_in', 'adjustment', NULL, 'ADJ-20260913-160558-1', 2.000, 1500.0000, 19.000, 21.000, 'Adjusted stock', 1, '2026-09-13 16:05:58'),
-(4, 1, 1, 'sale', 'sale', 3, 'SAL-000003', -1.000, 1500.0000, 21.000, 20.000, 'POS sale', 1, '2026-09-13 16:27:15'),
-(5, 1, 2, 'opening_stock', 'product', 2, '002', 15.000, 1000.0000, 0.000, 15.000, 'Opening stock', 1, '2026-09-13 17:33:30'),
-(6, 1, 2, 'sale', 'sale', 4, 'SAL-000004', -1.000, 1000.0000, 15.000, 14.000, 'POS sale', 2, '2026-09-13 17:58:08'),
-(7, 1, 2, 'sale', 'sale', 5, 'SAL-000005', -2.000, 1000.0000, 14.000, 12.000, 'POS sale', 1, '2026-09-13 21:34:24'),
-(8, 1, 1, 'sale', 'sale', 6, 'SAL-000006', -2.000, 1500.0000, 20.000, 18.000, 'POS sale', 1, '2026-09-13 22:36:03'),
-(9, 1, 2, 'sale', 'sale', 7, 'SAL-000007', -2.000, 1000.0000, 12.000, 10.000, 'POS sale', 1, '2026-09-13 22:48:57'),
-(10, 1, 3, 'opening_stock', 'product', 3, '003', 20.000, 1000.0000, 0.000, 20.000, 'Opening stock', 1, '2026-09-15 20:29:04'),
-(11, 1, 3, 'sale', 'sale', 8, 'SAL-000008', -2.000, 1000.0000, 20.000, 18.000, 'POS sale', 1, '2026-09-15 20:30:32'),
-(12, 1, 2, 'sale', 'sale', 9, 'SAL-000009', -1.000, 1000.0000, 10.000, 9.000, 'POS sale', 1, '2026-09-15 20:32:05'),
-(13, 1, 1, 'sale', 'sale', 10, 'SAL-000010', -1.000, 1500.0000, 18.000, 17.000, 'POS sale', 1, '2026-09-17 12:41:57'),
-(14, 1, 3, 'sale', 'sale', 11, 'SAL-000011', -1.000, 1000.0000, 18.000, 17.000, 'POS sale', 1, '2026-09-17 12:57:33');
-
 -- --------------------------------------------------------
 
 --
@@ -1085,13 +867,6 @@ CREATE TABLE `suppliers` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `suppliers`
---
-
-INSERT INTO `suppliers` (`id`, `name`, `contact_person`, `phone`, `alternate_phone`, `email`, `address`, `tax_number`, `notes`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'vimarktech', 'Victor Munene', '0711529618', '0100148124', 'victormunene207@gmail.com', 'Moi Avenue Nairobi, opposite BIHI Towers', NULL, NULL, 'active', 2, '2026-09-13 21:24:57', '2026-09-13 21:24:57');
-
 -- --------------------------------------------------------
 
 --
@@ -1113,7 +888,7 @@ CREATE TABLE `units` (
 --
 
 INSERT INTO `units` (`id`, `name`, `short_name`, `allows_decimal`, `decimal_places`, `is_active`, `created_at`) VALUES
-(1, 'Piece', 'pc', 0, 0, 1, '2026-09-13 15:04:44'),
+(1, 'Piece', 'pcs', 0, 0, 1, '2026-09-13 15:04:44'),
 (2, 'Roll', 'roll', 1, 3, 1, '2026-09-13 15:04:44'),
 (3, 'Box', 'box', 1, 3, 1, '2026-09-13 15:04:44'),
 (4, 'Metre', 'm', 1, 3, 1, '2026-09-13 15:04:44'),
@@ -1148,14 +923,6 @@ CREATE TABLE `users` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `role_id`, `branch_id`, `full_name`, `username`, `email`, `phone`, `password_hash`, `status`, `failed_login_attempts`, `locked_until`, `last_login_at`, `last_login_ip`, `password_changed_at`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Victor Munene', 'munene', 'victormunene207@gmail.com', '0711529618', '$2y$10$0lx9ck2FrrwfYSn.fM0Czu7.1ijO0scd6e04tu3o/L8O6DP/HJlki', 'active', 0, NULL, '2026-09-17 12:29:46', '::1', '2026-09-13 17:25:36', NULL, '2026-09-13 15:15:31', '2026-09-17 12:29:46'),
-(2, 2, 1, 'munene vic', 'vic', 'vdebmunene207@gmail.com', '0100148124', '$2y$10$JdvCjqf02tqxjUL2b1.j7u9pZ4roOHm/TPyV2JNzhYvxvn/XWE42W', 'active', 0, NULL, '2026-09-13 21:22:47', '::1', '2026-09-13 17:36:06', 1, '2026-09-13 17:36:06', '2026-09-13 21:22:47');
-
 -- --------------------------------------------------------
 
 --
@@ -1171,17 +938,8 @@ CREATE TABLE `user_preferences` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `user_preferences`
---
 
-INSERT INTO `user_preferences` (`user_id`, `theme`, `sidebar_collapsed`, `table_page_size`, `created_at`, `updated_at`) VALUES
-(1, 'dark', 0, 25, '2026-09-13 15:15:31', '2026-09-17 12:57:49'),
-(2, 'dark', 0, 25, '2026-09-13 17:36:06', '2026-09-13 21:27:26');
 
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `audit_logs`
@@ -1512,7 +1270,7 @@ ALTER TABLE `user_preferences`
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1524,7 +1282,7 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT for table `cash_movements`
 --
 ALTER TABLE `cash_movements`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cash_registers`
@@ -1542,31 +1300,31 @@ ALTER TABLE `cash_sessions`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customer_ledger`
 --
 ALTER TABLE `customer_ledger`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customer_payments`
 --
 ALTER TABLE `customer_payments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customer_payment_allocations`
 --
 ALTER TABLE `customer_payment_allocations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `document_sequences`
@@ -1608,19 +1366,19 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchase_items`
 --
 ALTER TABLE `purchase_items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchase_payments`
@@ -1650,19 +1408,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sale_items`
 --
 ALTER TABLE `sale_items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sale_payments`
 --
 ALTER TABLE `sale_payments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -1674,13 +1432,13 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -1692,7 +1450,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -1903,3 +1661,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS=1;

@@ -12,7 +12,7 @@ return [
     ],
 
     'session' => [
-        'name' => 'Wambo Wa_carpets_session',
+        'name' => 'Wambocarpets_session',
         'lifetime' => 3600,
         'httponly' => true,
         'samesite' => 'Lax',

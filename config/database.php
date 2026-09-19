@@ -14,7 +14,8 @@ function db(): PDO
         return $pdo;
     }
 
-    $host = trim((string) env('DB_HOST', 'localhost'));
+    $host = trim((string) env('DB_HOST', '127.0.0.1'));
+    $port = trim((string) env('DB_PORT', '3306'));
     $name = trim((string) env('DB_NAME'));
     $user = trim((string) env('DB_USER'));
     $password = (string) env('DB_PASSWORD', '');
@@ -28,8 +29,9 @@ function db(): PDO
     }
 
     $dsn = sprintf(
-        'mysql:host=%s;dbname=%s;charset=utf8mb4',
+        'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
         $host,
+        $port,
         $name
     );
 
